@@ -23,8 +23,17 @@ public class PersonProfile{
     }
     public void setId(Long id){
         this.id=id;
+    }
         public String getPersonType(){
-            
-        }
+            return personType;
+    }
+    public void setPersonType(String personType){
+        this.personType=personType;
+    }
+    public String getReferenceId(){
+        return referenceId;
+    }
+    public void setReferenceId(String referenceId){
+        this.referenceId=referenceId;
     }
 }
