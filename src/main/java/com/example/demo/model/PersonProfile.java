@@ -42,8 +42,11 @@ public class PersonProfile{
     public void setfullName(String fullName){
         this.fullName=fullName;
     }
-    public String department(){
+    public String getdepartment(){
         return department;
     }
-    
+    public void setdepartment(String department){
+        this.department=department;
+    }
+    public Boolean 
 }
