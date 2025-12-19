@@ -18,35 +18,4 @@ public class PersonProfile{
     private Boolean relationshipDeclared;
     private LocalDateTime createdAt;
 
-    public Long getId(){
-        return id;
     }
-    public void setId(Long id){
-        this.id=id;
-    }
-        public String getPersonType(){
-            return personType;
-    }
-    public void setPersonType(String personType){
-        this.personType=personType;
-    }
-    public String getReferenceId(){
-        return referenceId;
-    }
-    public void setReferenceId(String referenceId){
-        this.referenceId=referenceId;
-    }
-    public String getfullName(){
-        return fullName;
-    }
-    public void setfullName(String fullName){
-        this.fullName=fullName;
-    }
-    public String getdepartment(){
-        return department;
-    }
-    public void setdepartment(String department){
-        this.department=department;
-    }
-    public Boolean 
-}
