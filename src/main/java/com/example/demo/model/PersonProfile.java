@@ -36,4 +36,14 @@ public class PersonProfile{
     public void setReferenceId(String referenceId){
         this.referenceId=referenceId;
     }
+    public String getfullName(){
+        return fullName;
+    }
+    public void setfullName(String fullName){
+        this.fullName=fullName;
+    }
+    public String department(){
+        return department;
+    }
+    
 }
