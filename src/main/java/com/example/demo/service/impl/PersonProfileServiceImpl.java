@@ -5,8 +5,6 @@ import com.example.demo.model.PersonProfile;
 import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.service.PersonProfileService;
 import com.example.demo.exception.ApiException;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -14,28 +12,18 @@ public class PersonProfileServiceImpl implements PersonProfileService {
 
     private final PersonProfileRepository repo;
 
-    // Constructor Injection (Mandatory for the test suite)
     public PersonProfileServiceImpl(PersonProfileRepository repo) {
         this.repo = repo;
     }
 
     @Override
     public PersonProfile createPerson(PersonProfile person) {
-        if (person.getEmail() == null) {
-            throw new ApiException("email is required");
-        }
-        if (person.getReferenceId() == null) {
-            throw new ApiException("reference is required");
-        }
-        if (repo.findByEmail(person.getEmail()).isPresent()) {
+        if (repo.existsByEmail(person.getEmail())) {
             throw new ApiException("duplicate email");
         }
-        if (repo.findByReferenceId(person.getReferenceId()).isPresent()) {
+        if (repo.existsByReferenceId(person.getReferenceId())) {
             throw new ApiException("duplicate reference");
         }
-
-        person.setCreatedAt(LocalDateTime.now());
-        person.setRelationshipDeclared(false);
         return repo.save(person);
     }
 
