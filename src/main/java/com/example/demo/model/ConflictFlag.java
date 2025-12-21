@@ -1,24 +1,46 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+@Data @AllArgsConstructor @NoArgsConstructor
 public class ConflictFlag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Case ID is required")
     private Long caseId;
+
+    /*
+    @OneToOne
+    @JoinColumn(name = "case_id", insertable = false, updatable = false)
+    private ConflictCase conflictCase;
+    */
+
+    @NotBlank(message = "Flag type is mandatory")
     private String flagType;
-    private String description;
+
+    @NotBlank(message = "Severity is required")
     private String severity;
-    private LocalDateTime flaggedAt;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }
