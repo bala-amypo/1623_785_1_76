@@ -1,18 +1,19 @@
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.model.PersonProfile;
 import com.example.demo.service.PersonProfileService;
-
 import java.util.List;
 
 @RestController
 public class PersonProfileController {
 
-    @Autowired
-    PersonProfileService service;
+    private final PersonProfileService service;
+
+    // Constructor Injection
+    public PersonProfileController(PersonProfileService service) {
+        this.service = service;
+    }
 
     @PostMapping("/person")
     public PersonProfile createPerson(@RequestBody PersonProfile person) {
