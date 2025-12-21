@@ -4,17 +4,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
 public class RelationshipDeclaration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +21,5 @@ public class RelationshipDeclaration {
     private String relationshipType;
     private String description;
     private LocalDateTime declaredAt;
-    private boolean verified = false; // Use 'verified' so setter is 'setVerified'
+    private boolean verified = false; 
 }
