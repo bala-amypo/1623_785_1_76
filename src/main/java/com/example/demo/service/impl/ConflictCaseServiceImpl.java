@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import com.example.demo.exception.ApiException;
 import com.example.demo.model.ConflictCase;
 import com.example.demo.repository.ConflictCaseRepository;
-import com.example.demo.repository.ConflictFlagRepository;
+import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.service.ConflictCaseService;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,16 +12,18 @@ import java.util.List;
 public class ConflictCaseServiceImpl implements ConflictCaseService {
 
     private final ConflictCaseRepository caseRepo;
-    private final ConflictFlagRepository flagRepo;
+    private final PersonProfileRepository personRepo;
 
-    public ConflictCaseServiceImpl(ConflictCaseRepository caseRepo, 
-                                   ConflictFlagRepository flagRepo) {
+    public ConflictCaseServiceImpl(ConflictCaseRepository caseRepo, PersonProfileRepository personRepo) {
         this.caseRepo = caseRepo;
-        this.flagRepo = flagRepo;
+        this.personRepo = personRepo;
     }
 
     @Override
     public ConflictCase createCase(ConflictCase conflictCase) {
+        if (!personRepo.existsById(conflictCase.getPrimaryPersonId())) {
+            throw new ApiException("primary person not found");
+        }
         return caseRepo.save(conflictCase);
     }
 

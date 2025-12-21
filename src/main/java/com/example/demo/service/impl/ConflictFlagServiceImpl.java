@@ -14,8 +14,7 @@ public class ConflictFlagServiceImpl implements ConflictFlagService {
     private final ConflictFlagRepository flagRepo;
     private final ConflictCaseRepository caseRepo;
 
-    public ConflictFlagServiceImpl(ConflictFlagRepository flagRepo, 
-                                   ConflictCaseRepository caseRepo) {
+    public ConflictFlagServiceImpl(ConflictFlagRepository flagRepo, ConflictCaseRepository caseRepo) {
         this.flagRepo = flagRepo;
         this.caseRepo = caseRepo;
     }
@@ -23,7 +22,7 @@ public class ConflictFlagServiceImpl implements ConflictFlagService {
     @Override
     public ConflictFlag addFlag(ConflictFlag flag) {
         if (!caseRepo.existsById(flag.getCaseId())) {
-            throw new ApiException("case missing for flag");
+            throw new ApiException("case not found");
         }
         return flagRepo.save(flag);
     }
