@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.entity.PersonProfile;
+import com.example.demo.model.PersonProfile;
 import java.util.Optional;
 
 public interface PersonProfileRepository 
