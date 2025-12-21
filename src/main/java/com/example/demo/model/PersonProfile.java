@@ -32,6 +32,8 @@ public class PersonProfile {
     @NotBlank(message = "Email is required")
     private String email;
 
+    private boolean relationshipDeclared = false;
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

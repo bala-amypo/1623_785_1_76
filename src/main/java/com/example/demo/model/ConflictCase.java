@@ -26,6 +26,8 @@ public class ConflictCase {
     @NotBlank(message = "Risk level must be specified")
     private String riskLevel;
 
+    private String status = "OPEN";
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
