@@ -37,7 +37,7 @@ public class RelationshipDeclarationServiceImpl implements RelationshipDeclarati
     public RelationshipDeclaration verifyDeclaration(Long declarationId, boolean verified) {
         RelationshipDeclaration decl = relRepo.findById(declarationId)
                 .orElseThrow(() -> new ApiException("declaration not found"));
-        decl.setIsVerified(verified);
+        decl.setVerified(verified);
         return relRepo.save(decl);
     }
 
