@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/conflict-flags")
@@ -21,7 +22,7 @@ public class ConflictFlagController {
     }
 
     @PostMapping
-    public ConflictFlag add(@RequestBody ConflictFlag flag) {
+    public ConflictFlag add(@Valid @RequestBody ConflictFlag flag) {
         return flagService.addFlag(flag);
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/conflict-cases")
@@ -23,7 +24,7 @@ public class ConflictCaseController {
     }
 
     @PostMapping
-    public ConflictCase create(@RequestBody ConflictCase conflictCase) {
+    public ConflictCase create(@Valid @RequestBody ConflictCase conflictCase) {
         return caseService.createCase(conflictCase);
     }
 

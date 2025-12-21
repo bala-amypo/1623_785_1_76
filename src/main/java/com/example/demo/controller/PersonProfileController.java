@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.model.PersonProfile;
 import com.example.demo.service.PersonProfileService;
 import java.util.List;
+import jakarta.validation.Valid;
 
 @RestController
 public class PersonProfileController {
@@ -16,7 +17,7 @@ public class PersonProfileController {
     }
 
     @PostMapping("/person")
-    public PersonProfile createPerson(@RequestBody PersonProfile person) {
+    public PersonProfile createPerson(@Valid @RequestBody PersonProfile person) {
         return service.createPerson(person);
     }
 
