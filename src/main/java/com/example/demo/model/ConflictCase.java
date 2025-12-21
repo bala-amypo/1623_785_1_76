@@ -18,10 +18,9 @@ public class ConflictCase {
     @NotNull(message = "Primary Person ID is required")
     private Long primaryPersonId;
 
-    /* @OneToOne
-    @JoinColumn(name = "primary_person_id", insertable = false, updatable = false)
-    private PersonProfile primaryPerson;
-    */
+    // ADD THIS FIELD - The repository needs it to exist!
+    @NotNull(message = "Secondary Person ID is required")
+    private Long secondaryPersonId;
 
     @NotBlank(message = "Risk level must be specified")
     private String riskLevel;
