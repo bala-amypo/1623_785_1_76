@@ -29,7 +29,6 @@ public class RelationshipDeclarationServiceImpl implements RelationshipDeclarati
 
     @Override
     public List<RelationshipDeclaration> getDeclarationsByPerson(Long personId) {
-        // Implementation logic to filter declarations for a person
         return relRepo.findAll(); 
     }
 
