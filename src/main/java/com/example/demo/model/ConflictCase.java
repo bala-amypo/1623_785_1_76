@@ -18,7 +18,6 @@ public class ConflictCase {
     @NotNull(message = "Primary Person ID is required")
     private Long primaryPersonId;
 
-    // ADD THIS FIELD - The repository needs it to exist!
     @NotNull(message = "Secondary Person ID is required")
     private Long secondaryPersonId;
 

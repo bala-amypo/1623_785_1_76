@@ -32,7 +32,6 @@ public class GlobalExceptionHandler {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         
-        // This extracts the real error from your @NotBlank/@NotNull annotations
         String errors = ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
@@ -47,7 +46,6 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleGeneral(Exception ex) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        // For now, let's show the real error message so you can debug
         body.put("message", ex.getMessage()); 
         
         return new ResponseEntity<>(body, HttpStatus.INTERNAL_SERVER_ERROR);
