@@ -44,7 +44,6 @@
 //     }
 // }
 
-
 package com.example.demo.config;
 
 import org.springframework.context.annotation.Bean;
@@ -61,15 +60,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // Disable CSRF for testing with Postman/Swagger
+            // Disable CSRF for Postman/Swagger testing
             .csrf(csrf -> csrf.disable())
-
+            
             // Authorization rules
             .authorizeHttpRequests(auth -> auth
-                // Swagger access for all authenticated roles
+                // Swagger access for both roles
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").hasAnyRole("ADMIN", "MARKETER")
-
-                // ADMIN: full access to all management endpoints
+                
+                // ADMIN: full POST access
                 .requestMatchers(
                     "/admin/**", 
                     "/campaigns/**", 
@@ -79,8 +78,8 @@ public class SecurityConfig {
                     "/roi/**", 
                     "/users/**"
                 ).hasRole("ADMIN")
-
-                // MARKETER: read-only access (GET) for campaigns, influencers, etc.
+                
+                // MARKETER: read-only access (GET)
                 .requestMatchers(
                     "/campaigns/**", 
                     "/influencers/**", 
@@ -88,20 +87,17 @@ public class SecurityConfig {
                     "/sales/**", 
                     "/roi/**"
                 ).hasAnyRole("ADMIN", "MARKETER")
-
-                // All other endpoints require authentication
+                
+                // All other requests require authentication
                 .anyRequest().authenticated()
             )
-            // Enable default Spring form login
             .formLogin()
             .and()
-            // Allow logout for everyone
             .logout().permitAll();
 
         return http.build();
     }
 
-    // In-memory users with roles and BCrypt-encoded passwords
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
         var admin = org.springframework.security.core.userdetails.User
@@ -119,7 +115,6 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(admin, marketer);
     }
 
-    // BCrypt password encoder bean
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
