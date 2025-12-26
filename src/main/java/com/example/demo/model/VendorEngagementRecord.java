@@ -1,4 +1,5 @@
 package com.example.demo.model;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -12,6 +13,8 @@ public class VendorEngagementRecord {
     private Long employeeId;
     private Long vendorId;
     private String engagementType;
+    
+    private Double amount;
     private LocalDate engagementDate;
 
     public Long getId() { return id; }
