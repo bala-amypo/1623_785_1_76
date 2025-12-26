@@ -26,7 +26,13 @@ public class VendorEngagementServiceImpl implements VendorEngagementService {
         if (!personRepository.existsById(record.getVendorId())) {
             throw new ApiException("Vendor not found");
         }
-        
+        if (repository.existsByPerson_IdAndVendor_Id(
+        vendorEngagement.getPerson().getId(),
+        vendorEngagement.getVendor().getId()
+)) {
+    throw new ApiException("Duplicate vendor engagement not allowed");
+}
+
         return repository.save(record);
     }
 
