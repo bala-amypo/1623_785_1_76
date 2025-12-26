@@ -1,6 +1,4 @@
 package com.example.demo.model;
-import jakarta.validation.constraints.NotNull;
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -13,8 +11,6 @@ public class VendorEngagementRecord {
     private Long employeeId;
     private Long vendorId;
     private String engagementType;
-    @NotNull(message = "amount required")
-    private Double amount;
     private LocalDate engagementDate;
 
     public Long getId() { return id; }
