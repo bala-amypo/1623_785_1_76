@@ -10,10 +10,20 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+   @Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-            .authorizeHttpRequests(authz -> authz.anyRequest().permitAll());
+        http
+            .csrf(csrf -> csrf.disable()) // disable CSRF if using REST APIs
+            .cors() // enable CORS (requires WebMvcConfigurer with allowedOrigins)
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/auth/login").permitAll() // allow login endpoint
+                .anyRequest().authenticated() // everything else needs auth
+            )
+            .httpBasic(); // optional: use basic auth or JWT
         return http.build();
     }
 }
