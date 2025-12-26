@@ -11,14 +11,14 @@ import java.util.List;
 @Service
 public class VendorEngagementServiceImpl implements VendorEngagementService {
 
-    private final VendorEngagementRepository repository;
+    private final VendorEngagementRecordRepository repository;
 
-    public VendorEngagementServiceImpl(VendorEngagementRepository repository) {
+    public VendorEngagementServiceImpl(VendorEngagementRecordRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public VendorEngagement addVendorEngagement(VendorEngagement vendorEngagement) {
+    public VendorEngagementRecord addVendorEngagement(VendorEngagementRecord vendorEngagement) {
 
         // 🔽 PUT ALL VALIDATIONS HERE (INSIDE THIS METHOD)
 
