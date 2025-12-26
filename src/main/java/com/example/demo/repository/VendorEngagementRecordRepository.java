@@ -7,7 +7,8 @@ import java.util.List;
 public interface VendorEngagementRecordRepository extends JpaRepository<VendorEngagementRecord, Long> {
     List<VendorEngagementRecord> findByEmployeeId(Long employeeId);
     List<VendorEngagementRecord> findByVendorId(Long vendorId);
-    boolean existsByPerson_IdAndVendor_Id(Long personId, Long vendorId);
+    boolean existsByEmployeeIdAndVendorId(Long employeeId, Long vendorId);
+
 
 }
 
