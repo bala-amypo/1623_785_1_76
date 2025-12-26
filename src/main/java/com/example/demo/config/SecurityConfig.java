@@ -13,13 +13,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())   // Disable CSRF for REST APIs
-            .cors()                         // Enable CORS (configured in WebConfig)
+            .csrf(csrf -> csrf.disable())
+            .cors(cors -> {}) // just enable CORS
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/login").permitAll() // Allow login endpoint
-                .anyRequest().authenticated()               // Protect other endpoints
+                .requestMatchers("/auth/login").permitAll()
+                .anyRequest().authenticated()
             )
-            .httpBasic(); // Or use .formLogin() if you want form login
+            .httpBasic();
         return http.build();
     }
 }
