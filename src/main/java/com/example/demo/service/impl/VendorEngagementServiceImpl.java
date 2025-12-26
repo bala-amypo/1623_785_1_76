@@ -10,40 +10,39 @@ import java.util.List;
 
 @Service
 public class VendorEngagementServiceImpl implements VendorEngagementService {
-
     private final VendorEngagementRecordRepository repository;
+    private final PersonProfileRepository personRepository;
 
-    public VendorEngagementServiceImpl(VendorEngagementRecordRepository repository) {
+    public VendorEngagementServiceImpl(VendorEngagementRecordRepository repository, PersonProfileRepository personRepository) {
         this.repository = repository;
+        this.personRepository = personRepository;
     }
 
     @Override
-    public VendorEngagementRecord addVendorEngagement(VendorEngagementRecord vendorEngagement) {
-
-        // 🔽 PUT ALL VALIDATIONS HERE (INSIDE THIS METHOD)
-
-        if (vendorEngagement.getAmount() == null) {
-            throw new ApiException("amount required");
+    public VendorEngagementRecord addEngagement(VendorEngagementRecord record) {
+        if (!personRepository.existsById(record.getEmployeeId())) {
+            throw new ApiException("Employee not found");
         }
-
-        if (vendorEngagement.getPerson() == null ||
-            vendorEngagement.getPerson().getId() == null) {
-            throw new ApiException("person required");
+        if (!personRepository.existsById(record.getVendorId())) {
+            throw new ApiException("Vendor not found");
         }
+        
+        return repository.save(record);
+    }
 
-        if (vendorEngagement.getVendor() == null ||
-            vendorEngagement.getVendor().getId() == null) {
-            throw new ApiException("vendor required");
-        }
+    @Override
+    public List<VendorEngagementRecord> getEngagementsByEmployee(Long employeeId) {
+        return repository.findByEmployeeId(employeeId);
+    }
 
-        if (repository.existsByPersonIdAndVendorId(
-                vendorEngagement.getPerson().getId(),
-                vendorEngagement.getVendor().getId())) {
-            throw new ApiException("duplicate engagement");
-        }
+    @Override
+    public List<VendorEngagementRecord> getEngagementsByVendor(Long vendorId) {
+        return repository.findByVendorId(vendorId);
+    }
 
-        // 🔽 SAVE AT THE END
-        return repository.save(vendorEngagement);
+    @Override
+    public List<VendorEngagementRecord> getAllEngagements() {
+        return repository.findAll();
     }
 }
 
