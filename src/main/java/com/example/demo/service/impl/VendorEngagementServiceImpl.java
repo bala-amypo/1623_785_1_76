@@ -37,6 +37,11 @@ if (engagement.getPerson() == null || engagement.getPerson().getId() == null) {
 if (engagement.getVendor() == null || engagement.getVendor().getId() == null) {
     throw new ApiException("vendor required");
 }
+if (repo.existsByPersonIdAndVendorId(
+        engagement.getPerson().getId(),
+        engagement.getVendor().getId())) {
+    throw new ApiException("duplicate engagement");
+}
 
         return repository.save(record);
     }
