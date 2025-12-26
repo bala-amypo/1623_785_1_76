@@ -9,7 +9,6 @@ public interface VendorEngagementRecordRepository extends JpaRepository<VendorEn
     List<VendorEngagementRecord> findByVendorId(Long vendorId);
     boolean existsByEmployeeIdAndVendorId(Long employeeId, Long vendorId);
 
-
 }
 
 
