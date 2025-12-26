@@ -1,46 +1,46 @@
-package com.example.demo.model;
+// package com.example.demo.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
+// import jakarta.persistence.*;
+// import jakarta.validation.constraints.NotBlank;
+// import jakarta.validation.constraints.NotNull;
+// import lombok.Data;
+// import lombok.AllArgsConstructor;
+// import lombok.NoArgsConstructor;
+// import java.time.LocalDateTime;
 
-@Entity
-@Data @AllArgsConstructor @NoArgsConstructor
-public class ConflictFlag {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+// @Entity
+// @Data @AllArgsConstructor @NoArgsConstructor
+// public class ConflictFlag {
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
 
-    @NotNull(message = "Case ID is required")
-    private Long caseId;
+//     @NotNull(message = "Case ID is required")
+//     private Long caseId;
 
-    /*
-    @OneToOne
-    @JoinColumn(name = "case_id", insertable = false, updatable = false)
-    private ConflictCase conflictCase;
-    */
+//     /*
+//     @OneToOne
+//     @JoinColumn(name = "case_id", insertable = false, updatable = false)
+//     private ConflictCase conflictCase;
+//     */
 
-    @NotBlank(message = "Flag type is mandatory")
-    private String flagType;
+//     @NotBlank(message = "Flag type is mandatory")
+//     private String flagType;
 
-    @NotBlank(message = "Severity is required")
-    private String severity;
+//     @NotBlank(message = "Severity is required")
+//     private String severity;
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+//     private LocalDateTime createdAt;
+//     private LocalDateTime updatedAt;
 
-    @PrePersist
-    public void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
+//     @PrePersist
+//     public void onCreate() {
+//         this.createdAt = LocalDateTime.now();
+//         this.updatedAt = LocalDateTime.now();
+//     }
 
-    @PreUpdate
-    public void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
-}
+//     @PreUpdate
+//     public void onUpdate() {
+//         this.updatedAt = LocalDateTime.now();
+//     }
+// }

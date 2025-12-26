@@ -1,15 +1,15 @@
-package com.example.demo.service;
+// package com.example.demo.service;
 
-import com.example.demo.model.ConflictFlag;
-import java.util.List;
+// import com.example.demo.model.ConflictFlag;
+// import java.util.List;
 
-public interface ConflictFlagService {
+// public interface ConflictFlagService {
 
-    ConflictFlag addFlag(ConflictFlag flag);
+//     ConflictFlag addFlag(ConflictFlag flag);
 
-    List<ConflictFlag> getFlagsByCase(Long caseId);
+//     List<ConflictFlag> getFlagsByCase(Long caseId);
 
-    ConflictFlag getFlagById(Long id);
+//     ConflictFlag getFlagById(Long id);
 
-    List<ConflictFlag> getAllFlags();
-}
+//     List<ConflictFlag> getAllFlags();
+// }
