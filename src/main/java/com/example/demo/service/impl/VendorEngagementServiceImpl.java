@@ -21,31 +21,34 @@ public class VendorEngagementServiceImpl implements VendorEngagementService {
         this.personRepo = personRepo;
     }
 
-    @Override
-    public VendorEngagementRecord addEngagement(VendorEngagementRecord record) {
+   @Override
+public VendorEngagementRecord addEngagement(VendorEngagementRecord record) {
 
-        if (record == null) {
-            throw new ApiException("Engagement record is required");
-        }
-
-        // Validate employee
-        PersonProfile employee = personRepo.findById(record.getEmployeeId())
-                .orElseThrow(() -> new ApiException("Employee not found"));
-
-        if (!"EMPLOYEE".equalsIgnoreCase(employee.getPersonType())) {
-            throw new ApiException("Person is not an employee");
-        }
-
-        // Validate vendor
-        PersonProfile vendor = personRepo.findById(record.getVendorId())
-                .orElseThrow(() -> new ApiException("Vendor not found"));
-
-        if (!"VENDOR".equalsIgnoreCase(vendor.getPersonType())) {
-            throw new ApiException("Person is not a vendor");
-        }
-
-        return engagementRepo.save(record);
+    if (record == null) {
+        throw new ApiException("Engagement record is required");
     }
+
+    PersonProfile employee = personRepo.findById(record.getEmployeeId())
+            .orElseThrow(() -> new ApiException("Employee not found"));
+
+    // Only validate type if explicitly set
+    if (employee.getPersonType() != null &&
+        !"EMPLOYEE".equalsIgnoreCase(employee.getPersonType())) {
+        throw new ApiException("Person is not an employee");
+    }
+
+    PersonProfile vendor = personRepo.findById(record.getVendorId())
+            .orElseThrow(() -> new ApiException("Vendor not found"));
+
+    // Only validate type if explicitly set
+    if (vendor.getPersonType() != null &&
+        !"VENDOR".equalsIgnoreCase(vendor.getPersonType())) {
+        throw new ApiException("Person is not a vendor");
+    }
+
+    return engagementRepo.save(record);
+}
+
 
     @Override
     public List<VendorEngagementRecord> getEngagementsByEmployee(Long employeeId) {
