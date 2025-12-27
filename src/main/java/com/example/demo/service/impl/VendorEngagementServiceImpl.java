@@ -6,7 +6,7 @@ import com.example.demo.model.VendorEngagementRecord;
 import com.example.demo.repository.PersonProfileRepository;
 import com.example.demo.repository.VendorEngagementRecordRepository;
 import com.example.demo.service.VendorEngagementService;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class VendorEngagementServiceImpl implements VendorEngagementService {
