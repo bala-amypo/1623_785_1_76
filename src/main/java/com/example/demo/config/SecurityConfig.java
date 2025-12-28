@@ -226,11 +226,15 @@ public class SecurityConfig {
             )
 
             // JWT filter 
-            // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            //   .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
   
 
   .formLogin(form -> form.permitAll())
             .logout(logout -> logout.permitAll());
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+  
+
+
 
 
         return http.build();
