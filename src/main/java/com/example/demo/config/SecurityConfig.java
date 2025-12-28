@@ -211,7 +211,7 @@ public class SecurityConfig {
 
             // Stateless session
             .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
             )
 
             // Authorization rules
@@ -225,8 +225,11 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
 
-            // JWT filter
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+            // JWT filter 
+            // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+  
+
+  .formLogin(form -> {})
 
         return http.build();
     }
