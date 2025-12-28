@@ -67,21 +67,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // JWT use panrom, so csrf vendam
             .csrf(csrf -> csrf.disable())
-
-            // SESSION illa, FULLY STATELESS
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-
-            // default spring login / basic auth disable
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
-
-            // AUTH RULES
             .authorizeHttpRequests(auth -> auth
-                // 👇 indha routes ellam OPEN
+                // 👇 ONLY CHANGE: allow auth URLs & swagger
                 .requestMatchers(
                     "/auth/**",
                     "/swagger-ui/**",
@@ -89,18 +82,14 @@ public class SecurityConfig {
                     "/v3/api-docs/**",
                     "/error"
                 ).permitAll()
-
-                // 👇 ellame JWT venum
+                // 👇 all other APIs need JWT
                 .anyRequest().authenticated()
             )
-
-            // JWT filter
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 }
-
 
 
 // package com.example.demo.config;
