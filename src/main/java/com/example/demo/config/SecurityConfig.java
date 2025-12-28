@@ -110,7 +110,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public class SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             // Disable CSRF for stateless JWT
             .csrf(csrf -> csrf.disable())
