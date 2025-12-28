@@ -229,7 +229,7 @@ public class SecurityConfig {
             // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
   
 
-  formLogin(form -> form.permitAll())
+  .formLogin(form -> form.permitAll())
             .logout(logout -> logout.permitAll());
 
 
