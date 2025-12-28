@@ -31,12 +31,11 @@ public class JwtFilter extends OncePerRequestFilter {
         
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring(7); // remove "Bearer "
+            String token = authHeader.substring(7); 
 
             if (jwtUtil.validateToken(token)) {
                 String username = jwtUtil.extractUsername(token);
 
-                // Set authentication in Spring context
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
                                 username,
@@ -52,7 +51,6 @@ public class JwtFilter extends OncePerRequestFilter {
             }
         }
 
-        // continue filter chain
         filterChain.doFilter(request, response);
     }
 }
