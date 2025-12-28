@@ -229,7 +229,7 @@ public class SecurityConfig {
             // .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
   
 
-  .formLogin(form -> {})
+  .formLogin(form -> {});
 
         return http.build();
     }
