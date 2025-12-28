@@ -23,7 +23,6 @@ public class VendorEngagementRecord {
 
     private LocalDate engagementDate;
 
-    // -------- getters / setters --------
 
     public Long getId() {
         return id;

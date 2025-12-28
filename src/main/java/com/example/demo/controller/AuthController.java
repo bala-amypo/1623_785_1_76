@@ -16,20 +16,20 @@ public class AuthController {
 
     private final JwtUtil jwtUtil;
 
-    // In-memory user store
+
     private final List<User> users = new ArrayList<>();
 
     public AuthController(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
 
-        // Add default user
+
         users.add(new User("user", "pass", "user@example.com"));
     }
 
-    // REGISTER
+
     @PostMapping("/register")
     public AuthResponse register(@RequestBody User user) {
-        // Check if username already exists
+
         boolean exists = users.stream()
                 .anyMatch(u -> u.getUsername().equals(user.getUsername()));
 
@@ -41,7 +41,6 @@ public class AuthController {
         return new AuthResponse("User registered successfully", null);
     }
 
-    // LOGIN
     @PostMapping("/login")
     public AuthResponse login(@RequestBody AuthRequest request) {
         Optional<User> user = users.stream()
