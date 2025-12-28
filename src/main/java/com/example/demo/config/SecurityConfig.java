@@ -104,32 +104,27 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-
-    private final JwtFilter jwtFilter;
-
-    public SecurityConfig(JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
-
-    @Bean
+@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+            // Disable CSRF for stateless JWT
             .csrf(csrf -> csrf.disable())
+
+            // Use stateless session (JWT)
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+            // Authorization rules
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll() // login/register
-                .requestMatchers("/api/**").authenticated() // all /api/** URLs require JWT
-            )
-            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
+                .requestMatchers(
+                        "/auth/**",      // login/register endpoints
+                        "/v3/api-docs/**",   // Swagger/OpenAPI if you use it
+                        "/swagger-ui/**",
+                        "/swagger-ui.html"
+                ).permitAll()
+                .anyRequest().authenticated()
+            );
+ return http.build();
     }
-}
-
-
 
 
 
