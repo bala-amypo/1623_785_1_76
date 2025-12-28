@@ -45,16 +45,55 @@
 // }
 
 
-package com.example.demo.security;
+// package com.example.demo.security;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+// import org.springframework.security.config.http.SessionCreationPolicy;
+// import org.springframework.security.web.SecurityFilterChain;
+// import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+// @Configuration
+// public class SecurityConfig {
+
+//     private final JwtFilter jwtFilter;
+
+//     public SecurityConfig(JwtFilter jwtFilter) {
+//         this.jwtFilter = jwtFilter;
+//     }
+
+//     @Bean
+//     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+//         http
+//             .csrf(csrf -> csrf.disable())
+//             .sessionManagement(session ->
+//                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//             )
+//             .formLogin(form -> form.disable())
+//             .httpBasic(basic -> basic.disable())
+//             .authorizeHttpRequests(auth -> auth
+//                 // 👇 ONLY CHANGE: allow auth URLs & swagger
+//                 .requestMatchers(
+//                     "/auth/**",
+//                     "/swagger-ui/**",
+//                     "/swagger-ui.html",
+//                     "/v3/api-docs/**",
+//                     "/error"
+//                 ).permitAll()
+//                 // 👇 all other APIs need JWT
+//                 .anyRequest().authenticated()
+//             )
+//             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+//         return http.build();
+//     }
+// }
+
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
@@ -65,31 +104,24 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
         http
             .csrf(csrf -> csrf.disable())
-            .sessionManagement(session ->
-                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .formLogin(form -> form.disable())
-            .httpBasic(basic -> basic.disable())
             .authorizeHttpRequests(auth -> auth
-                // 👇 ONLY CHANGE: allow auth URLs & swagger
-                .requestMatchers(
-                    "/auth/**",
-                    "/swagger-ui/**",
-                    "/swagger-ui.html",
-                    "/v3/api-docs/**",
-                    "/error"
-                ).permitAll()
-                // 👇 all other APIs need JWT
-                .anyRequest().authenticated()
+                .requestMatchers("/auth/**").permitAll() // login/register
+                .requestMatchers("/api/**").authenticated() // all /api/** URLs require JWT
             )
+            .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 }
+
+
+
+
+
+
 
 
 // package com.example.demo.config;
