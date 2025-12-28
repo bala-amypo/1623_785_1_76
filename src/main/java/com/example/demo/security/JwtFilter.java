@@ -29,6 +29,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
+
+        if (!request.getServletPath().startsWith("/api")) {
+    filterChain.doFilter(request, response); // skip JWT for non-API requests
+    return;
+}
+
+
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7); // remove "Bearer "
 
