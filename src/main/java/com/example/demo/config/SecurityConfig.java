@@ -45,12 +45,6 @@
 // }
 
 
-
-
-
-
-
-
 package com.example.demo.security;
 
 import org.springframework.context.annotation.Bean;
@@ -73,30 +67,40 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
+            // JWT use panrom, so csrf vendam
             .csrf(csrf -> csrf.disable())
 
-            // VERY IMPORTANT
+            // SESSION illa, FULLY STATELESS
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
 
-            // disable default login mechanisms
+            // default spring login / basic auth disable
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
 
+            // AUTH RULES
             .authorizeHttpRequests(auth -> auth
+                // 👇 indha routes ellam OPEN
                 .requestMatchers(
-                        "/auth/**",
-                        "/error"
+                    "/auth/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/v3/api-docs/**",
+                    "/error"
                 ).permitAll()
+
+                // 👇 ellame JWT venum
                 .anyRequest().authenticated()
             )
 
+            // JWT filter
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 }
+
 
 
 // package com.example.demo.config;
