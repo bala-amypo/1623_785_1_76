@@ -25,15 +25,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            // JWT so CSRF off
+            
             .csrf(csrf -> csrf.disable())
 
-            // Stateless session
+        
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
 
-            // Authorization rules
+    
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                         "/auth/**",
@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
             )
 
-            // JWT filter 
+            
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
   
 
@@ -52,7 +52,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Needed for authentication manager
+
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config) throws Exception {
