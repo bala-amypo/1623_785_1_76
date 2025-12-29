@@ -56,4 +56,4 @@ public class AuthController {
         return new AuthResponse("Login successful", token);
     }
 
-        
+        }
