@@ -55,4 +55,5 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.get().getUsername());
         return new AuthResponse("Login successful", token);
     }
-}
+
+        
